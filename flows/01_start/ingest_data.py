@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from prefect import flow, task
 
 
-
+@task(log_prints=True, retries=3)
 def ingest_data(user, password, host, port, db, table_name, url):
 
     # the backup files are gzipped, and it's important to keep the correct extension
@@ -55,11 +55,11 @@ def ingest_data(user, password, host, port, db, table_name, url):
             break
 
 @flow(name="Ingest Flow")
-def main():
-    user = "postgres"
-    password = "admin"
+def main_flow():
+    user = "root"
+    password = "root"
     host = "localhost"
-    port = "5433"
+    port = "5432"
     db = "ny_taxi"
     table_name = "yellow_taxi_trips"
     csv_url = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
@@ -68,5 +68,5 @@ def main():
     ingest_data(user, password, host, port, db, table_name, csv_url)
 
 if __name__ == '__main__':
-    main()
+    main_flow()
     
