@@ -56,8 +56,8 @@ def ingest_data(user, password, host, port, db, table_name, url):
 
 @flow(name="Ingest Flow")
 def main_flow():
-    user = "root"
-    password = "root"
+    user = "root" # the username  is chaned from original file
+    password = "root" # the password is changed from original file
     host = "localhost"
     port = "5432"
     db = "ny_taxi"

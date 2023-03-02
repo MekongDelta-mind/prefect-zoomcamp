@@ -136,3 +136,4 @@ dmypy.json
 *.parquet
 *.csv
 *.json
+*.gz
