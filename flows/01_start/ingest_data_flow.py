@@ -41,8 +41,10 @@ def transform_data(df):
 @task(log_prints=True, retries=3)
 def load_data(table_name, df):
     
-    connection_block = SqlAlchemyConnector.load("postgres-connector")
-    with connection_block.get_connection(begin=False) as engine:
+    connection_block = SqlAlchemyConnector.load("trial-sqlalchmey-connector") # adding the conector name which we created in teh UI 
+
+    with connection_block.get_connection(begin=False) as engine: 
+        # the step to create the engine from the url is abstracted by using the connector. Rest of the code remaings the same.
         df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
         df.to_sql(name=table_name, con=engine, if_exists='append')
 
